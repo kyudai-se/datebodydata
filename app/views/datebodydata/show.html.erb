@@ -10,5 +10,10 @@
   <%= number_with_precision(@datebodydatum.weight, precision: 1) %>
 </p>
 
+<p>
+  <strong>脈拍:</strong>
+  <%= number_with_precision(@datebodydatum.pulse, precision: 0) %>
+</p>
+
 <%= link_to 'Edit', edit_datebodydatum_path(@datebodydatum) %> |
 <%= link_to 'Back', datebodydata_path %>

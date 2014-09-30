@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140930005031) do
+ActiveRecord::Schema.define(version: 20140930052036) do
 
   create_table "aream", force: true do |t|
     t.datetime "entdate"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20140930005031) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "date"
+    t.decimal  "pulse"
   end
 
   create_table "lineups", force: true do |t|

@@ -6,6 +6,7 @@ class DatebodydataController < ApplicationController
   def index 
     @datebodydata = Datebodydatum.order("date ASC")
     @graphdata = Datebodydatum.order('date ASC').group(:date).sum(:weight)
+    @chartdata = Datebodydatum.order('date ASC').group(:date).sum(:pulse)
   end
 
   # GET /datebodydata/1
@@ -71,6 +72,6 @@ class DatebodydataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def datebodydatum_params
-      params.require(:datebodydatum).permit(:date, :weight)
+      params.require(:datebodydatum).permit(:date, :weight, :pulse)
     end
 end
