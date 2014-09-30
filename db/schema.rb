@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929062116) do
+ActiveRecord::Schema.define(version: 20140930005031) do
 
   create_table "aream", force: true do |t|
     t.datetime "entdate"
@@ -119,10 +119,10 @@ ActiveRecord::Schema.define(version: 20140929062116) do
   end
 
   create_table "datebodydata", force: true do |t|
-    t.datetime "date"
     t.decimal  "weight"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "date"
   end
 
   create_table "lineups", force: true do |t|

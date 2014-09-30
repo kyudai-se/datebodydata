@@ -12,7 +12,7 @@
   <tbody>
     <% @datebodydata.each do |datebodydatum| %>
       <tr>
-        <td><%= datebodydatum.date.try(:strftime, "%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= datebodydatum.date.try(:strftime, "%Y-%m-%d") %></td>
         <td><%= number_with_precision(datebodydatum.weight, precision: 1) %></td>
         <td><%= link_to 'Show', datebodydatum %></td>
         <td><%= link_to 'Edit', edit_datebodydatum_path(datebodydatum) %></td>
@@ -23,5 +23,5 @@
 </table>
 
 <br>
-<%= line_chart @graphdata %>
+<%= line_chart @graphdata, min: 50, max: 70 %>
 <%= link_to 'New Datebodydatum', new_datebodydatum_path %>
