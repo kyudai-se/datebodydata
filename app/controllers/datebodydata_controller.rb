@@ -3,8 +3,9 @@ class DatebodydataController < ApplicationController
 
   # GET /datebodydata
   # GET /datebodydata.json
-  def index
-    @datebodydata = Datebodydatum.all
+  def index 
+    @datebodydata = Datebodydatum.order("date ASC")
+    @graphdata = Datebodydatum.order('date ASC').group(:date).sum(:weight)
   end
 
   # GET /datebodydata/1
@@ -25,7 +26,7 @@ class DatebodydataController < ApplicationController
   # POST /datebodydata.json
   def create
     @datebodydatum = Datebodydatum.new(datebodydatum_params)
-
+    @datebodydatum.weight = @datebodydatum.weight.round(1)
     respond_to do |format|
       if @datebodydatum.save
         format.html { redirect_to @datebodydatum, notice: 'Datebodydatum was successfully created.' }
@@ -40,6 +41,7 @@ class DatebodydataController < ApplicationController
   # PATCH/PUT /datebodydata/1
   # PATCH/PUT /datebodydata/1.json
   def update
+    @datebodydatum.weight = @datebodydatum.weight.round(1)
     respond_to do |format|
       if @datebodydatum.update(datebodydatum_params)
         format.html { redirect_to @datebodydatum, notice: 'Datebodydatum was successfully updated.' }
@@ -69,6 +71,6 @@ class DatebodydataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def datebodydatum_params
-      params[:datebodydatum]
+      params.require(:datebodydatum).permit(:date, :weight)
     end
 end

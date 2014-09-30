@@ -1,15 +1,19 @@
 <h1>Listing datebodydata</h1>
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 
 <table>
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>日付</th>
+      <th>体重</th>
     </tr>
   </thead>
 
   <tbody>
     <% @datebodydata.each do |datebodydatum| %>
       <tr>
+        <td><%= datebodydatum.date.try(:strftime, "%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= number_with_precision(datebodydatum.weight, precision: 1) %></td>
         <td><%= link_to 'Show', datebodydatum %></td>
         <td><%= link_to 'Edit', edit_datebodydatum_path(datebodydatum) %></td>
         <td><%= link_to 'Destroy', datebodydatum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -19,5 +23,5 @@
 </table>
 
 <br>
-
+<%= line_chart @graphdata %>
 <%= link_to 'New Datebodydatum', new_datebodydatum_path %>

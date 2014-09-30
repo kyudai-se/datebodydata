@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :datebodydata
-
+  root :to => 'datebodydata#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
