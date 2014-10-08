@@ -8,16 +8,25 @@ class DatebodydataController < ApplicationController
 
     xAxis_categories = @datebodydata.select(:date).map{|d| d.date.to_s}
     tickInterval = 1
-    data = @datebodydata.select(:weight).map{|d| d.weight.to_f}
+    data  = @datebodydata.select(:weight).map{|d| d.weight.to_f}
     data2 = @datebodydata.select(:pulse).map{|d| d.pulse.to_f}
     data3 = @datebodydata.select(:bodytemperature).map{|d| d.bodytemperature.to_f}
+    data4 = @datebodydata.select(:bloodpressure).map{|d| d.bloodpressure.to_i}
+    data5 = @datebodydata.select(:highbloodpressure).map{|d| d.highbloodpressure.to_i}
     @graph_data = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(text: 'グラフ名')
       f.xAxis(categories: xAxis_categories, tickInterval: tickInterval)
-      f.options[:yAxis] = [{ title: { text: '体重' }}, { title: { text: '脈拍'}, opposite: true}, { title: { text: '体温'}, opposite: true}]
+      f.options[:yAxis] = [
+                           { title: { text: '体重' }},
+                           { title: { text: '血圧'}},
+                           { title: { text: '脈拍'}, opposite: true},
+                           { title: { text: '体温'}, opposite: true}
+                          ]
       f.series(name: '体重', data: data,  type: 'column')
-      f.series(name: '脈拍', data: data2, type: 'spline', yAxis: 1)
-      f.series(name: '体温', data: data3, type: 'spline', yAxis: 2)
+      f.series(name: '最低血圧', data: data4, type: 'column', yAxis: 1)
+      f.series(name: '最高血圧', data: data5, type: 'column')
+      f.series(name: '脈拍', data: data2, type: 'spline', yAxis: 2)
+      f.series(name: '体温', data: data3, type: 'spline', yAxis: 3)
     end
   end
 
@@ -84,6 +93,7 @@ class DatebodydataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def datebodydatum_params
-      params.require(:datebodydatum).permit(:date, :weight, :pulse, :bodytemperature)
+      params.require(:datebodydatum).permit(
+        :date, :weight, :pulse, :bodytemperature, :bloodpressure, :highbloodpressure)
     end
 end

@@ -7,6 +7,8 @@
       <th>体重</th>
       <th>脈拍</th>
       <th>体温</th>
+      <th>最低血圧</th>
+      <th>最高血圧</th>
     </tr>
   </thead>
 
@@ -17,6 +19,8 @@
         <td><%= number_with_precision(datebodydatum.weight, precision: 1) %></td>
         <td><%= number_with_precision(datebodydatum.pulse, precision: 0) %></td>
         <td><%= number_with_precision(datebodydatum.bodytemperature, precision: 1) %></td>
+        <td><%= number_with_precision(datebodydatum.bloodpressure, precision: 0) %></td>
+        <td><%= number_with_precision(datebodydatum.highbloodpressure, precision: 0) %></td>
         <td><%= link_to 'Show', datebodydatum %></td>
         <td><%= link_to 'Edit', edit_datebodydatum_path(datebodydatum) %></td>
         <td><%= link_to 'Destroy', datebodydatum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
