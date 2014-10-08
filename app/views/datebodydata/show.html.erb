@@ -15,5 +15,10 @@
   <%= number_with_precision(@datebodydatum.pulse, precision: 0) %>
 </p>
 
+<p>
+  <strong>体温:</strong>
+  <%= number_with_precision(@datebodydatum.bodytemperature, precision: 1) %>
+</p>
+
 <%= link_to 'Edit', edit_datebodydatum_path(@datebodydatum) %> |
 <%= link_to 'Back', datebodydata_path %>
