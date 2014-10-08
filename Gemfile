@@ -25,6 +25,8 @@ gem 'jbuilder', '1.0.2'
 
 gem 'chartkick'
 
+gem 'lazy_high_charts'
+
 group :doc do
 # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', '0.3.20',          group: :doc

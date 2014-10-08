@@ -5,8 +5,18 @@ class DatebodydataController < ApplicationController
   # GET /datebodydata.json
   def index 
     @datebodydata = Datebodydatum.order("date ASC")
-    @graphdata = Datebodydatum.order('date ASC').group(:date).sum(:weight)
-    @chartdata = Datebodydatum.order('date ASC').group(:date).sum(:pulse)
+
+    xAxis_categories = @datebodydata.select(:date).map{|d| d.date.to_s}
+    tickInterval = 1
+    data = @datebodydata.select(:weight).map{|d| d.weight.to_f}
+    data2 = @datebodydata.select(:pulse).map{|d| d.pulse.to_f}
+    @graph_data = LazyHighCharts::HighChart.new('graph') do |f|
+      f.title(text: 'グラフ名')
+      f.xAxis(categories: xAxis_categories, tickInterval: tickInterval)
+      f.options[:yAxis] = [{ title: { text: '脈拍' }}, { title: { text: '体重'}, opposite: true}]
+      f.series(name: '体重', data: data, type: 'column', yAxis: 1)
+      f.series(name: '脈拍', data: data2, type: 'spline')
+    end
   end
 
   # GET /datebodydata/1

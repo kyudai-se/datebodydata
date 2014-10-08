@@ -1,5 +1,4 @@
 <h1>Listing datebodydata</h1>
-<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 
 <table>
   <thead>
@@ -24,9 +23,5 @@
   </tbody>
 </table>
 
-<br>
-<%= line_chart [
-    {name: "体重", data: @graphdata, min: 50, max: 70},
-    {name: "脈拍", data: @chartdata, min: 50, max: 130}
-] %>
 <%= link_to 'New Datebodydatum', new_datebodydatum_path %>
+<%= high_chart("chart-1", @graph_data) %>
