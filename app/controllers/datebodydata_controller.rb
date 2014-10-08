@@ -8,7 +8,7 @@ class DatebodydataController < ApplicationController
 
     xAxis_categories = @datebodydata.select(:date).map{|d| d.date.to_s}
     tickInterval = 1
-    data  = @datebodydata.select(:weight).map{|d| d.weight.to_f}
+    data1 = @datebodydata.select(:weight).map{|d| d.weight.to_f}
     data2 = @datebodydata.select(:pulse).map{|d| d.pulse.to_f}
     data3 = @datebodydata.select(:bodytemperature).map{|d| d.bodytemperature.to_f}
     data4 = @datebodydata.select(:bloodpressure).map{|d| d.bloodpressure.to_i}
@@ -17,16 +17,16 @@ class DatebodydataController < ApplicationController
       f.title(text: 'グラフ名')
       f.xAxis(categories: xAxis_categories, tickInterval: tickInterval)
       f.options[:yAxis] = [
-                           { title: { text: '体重' }},
-                           { title: { text: '血圧'}},
-                           { title: { text: '脈拍'}, opposite: true},
-                           { title: { text: '体温'}, opposite: true}
+                           { title: { text: '体重' }, min: 30, max: 70},
+                           { title: { text: '血圧' }, min: 50, max: 150},
+                           { title: { text: '脈拍' }, min: 50, max: 150, opposite: true},
+                           { title: { text: '体温' }, min: 35, max: 41, opposite: true}
                           ]
-      f.series(name: '体重', data: data,  type: 'column')
+      f.series(name: '体重', data: data1, type: 'column', yAxis: 0)
       f.series(name: '最低血圧', data: data4, type: 'column', yAxis: 1)
-      f.series(name: '最高血圧', data: data5, type: 'column')
-      f.series(name: '脈拍', data: data2, type: 'spline', yAxis: 2)
-      f.series(name: '体温', data: data3, type: 'spline', yAxis: 3)
+      f.series(name: '最高血圧', data: data5, type: 'column', yAxis: 1)
+      f.series(name: '脈拍', data: data2, type: 'line', yAxis: 2)
+      f.series(name: '体温', data: data3, type: 'line', yAxis: 3)
     end
   end
 
