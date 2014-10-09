@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008020032) do
+ActiveRecord::Schema.define(version: 20141009070428) do
 
   create_table "aream", force: true do |t|
     t.datetime "entdate"
@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 20141008020032) do
     t.decimal  "bloodpressure"
     t.decimal  "highbloodpressure"
   end
+
+  add_index "datebodydata", ["date"], name: "index_datebodydata_on_date", unique: true, using: :btree
 
   create_table "lineups", force: true do |t|
     t.integer  "bankm_id"

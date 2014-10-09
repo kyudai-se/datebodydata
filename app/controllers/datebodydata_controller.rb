@@ -5,17 +5,17 @@ class DatebodydataController < ApplicationController
   # GET /datebodydata.json
   def index 
     @datebodydata = Datebodydatum.order("date ASC")
-
-    xAxis_categories = @datebodydata.select(:date).map{|d| d.date.to_s}
+    @end_day = @datebodydata.order("date ASC").select(:date).last(7).map{|d| d.date}
+#    xAxis_categories = @datebodydata.select(:date).map{|d| d.date.to_s}
     tickInterval = 1
-    data1 = @datebodydata.select(:weight).map{|d| d.weight.to_f}
-    data2 = @datebodydata.select(:pulse).map{|d| d.pulse.to_f}
-    data3 = @datebodydata.select(:bodytemperature).map{|d| d.bodytemperature.to_f}
-    data4 = @datebodydata.select(:bloodpressure).map{|d| d.bloodpressure.to_i}
-    data5 = @datebodydata.select(:highbloodpressure).map{|d| d.highbloodpressure.to_i}
+    data1 = @datebodydata.select(:weight).order("date ASC").last(7).map{|d| d.weight.to_f}
+    data2 = @datebodydata.select(:pulse).order("date ASC").last(7).map{|d| d.pulse.to_f}
+    data3 = @datebodydata.select(:bodytemperature).order("date ASC").last(7).map{|d| d.bodytemperature.to_f}
+    data4 = @datebodydata.select(:bloodpressure).order("date ASC").last(7).map{|d| d.bloodpressure.to_i}
+    data5 = @datebodydata.select(:highbloodpressure).order("date ASC").last(7).map{|d| d.highbloodpressure.to_i}
     @graph_data = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(text: 'グラフ名')
-      f.xAxis(categories: xAxis_categories, tickInterval: tickInterval)
+      f.xAxis(categories: @end_day, tickInterval: tickInterval)
       f.options[:yAxis] = [
 #yAxis: 0 or 指定なし
         { title: { text: '体重' }, min: 30, max: 130, tickInterval: 10},
@@ -24,10 +24,11 @@ class DatebodydataController < ApplicationController
 #yAxis: 2
         { title: { text: '脈拍' }, min: 50, max: 150, tickInterval: 10, opposite: true},
 #yAxis: 3
-        { title: { text: '体温' }, min: 35, max: 40, tickInterval: 0.5, opposite: true }
+        { title: { text: '体温' }, min: 35, max: 41, tickInterval: 0.5, opposite: true }
                           ]
       f.series(name: '体重', data: data1, type: 'column', yAxis: 0,
-               tooltip: { valueSuffix: 'Kg'}
+               tooltip: { valueSuffix: 'Kg'},
+               enableMouseTracking: false
               )
       f.series(name: '最低血圧', data: data4, type: 'column', yAxis: 1,
                tooltip: { valueSuffix: 'mmHg'}
