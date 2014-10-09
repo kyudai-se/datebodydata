@@ -17,16 +17,31 @@ class DatebodydataController < ApplicationController
       f.title(text: 'グラフ名')
       f.xAxis(categories: xAxis_categories, tickInterval: tickInterval)
       f.options[:yAxis] = [
-                           { title: { text: '体重' }, min: 30, max: 70},
-                           { title: { text: '血圧' }, min: 50, max: 150},
-                           { title: { text: '脈拍' }, min: 50, max: 150, opposite: true},
-                           { title: { text: '体温' }, min: 35, max: 41, opposite: true}
+#yAxis: 0 or 指定なし
+        { title: { text: '体重' }, min: 30, max: 130, tickInterval: 10},
+#yAxis: 1
+        { title: { text: '血圧' }, min: 50, max: 150, tickInterval: 10},
+#yAxis: 2
+        { title: { text: '脈拍' }, min: 50, max: 150, tickInterval: 10, opposite: true},
+#yAxis: 3
+        { title: { text: '体温' }, min: 35, max: 40, tickInterval: 0.5, opposite: true }
                           ]
-      f.series(name: '体重', data: data1, type: 'column', yAxis: 0)
-      f.series(name: '最低血圧', data: data4, type: 'column', yAxis: 1)
-      f.series(name: '最高血圧', data: data5, type: 'column', yAxis: 1)
-      f.series(name: '脈拍', data: data2, type: 'line', yAxis: 2)
-      f.series(name: '体温', data: data3, type: 'line', yAxis: 3)
+      f.series(name: '体重', data: data1, type: 'column', yAxis: 0,
+               tooltip: { valueSuffix: 'Kg'}
+              )
+      f.series(name: '最低血圧', data: data4, type: 'column', yAxis: 1,
+               tooltip: { valueSuffix: 'mmHg'}
+              )
+      f.series(name: '最高血圧', data: data5, type: 'column', yAxis: 1,
+               tooltip: { valueSuffix: 'mmHg'}
+              )
+      f.series(name: '脈拍', data: data2, type: 'line', yAxis: 2,
+               tooltip: { valueSuffix: '回'}
+              )
+      f.series(name: '体温', data: data3, type: 'line', yAxis: 3,
+               tooltip: { valueSuffix: '°C'},
+               plotLines: [{ value: 0, width: 1, color: '#808080' }]
+              )
     end
   end
 
