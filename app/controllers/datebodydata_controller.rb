@@ -16,12 +16,17 @@ class DatebodydataController < ApplicationController
   def index
     @datebodydata = Datebodydatum.order("date")
     require 'date'
-    if !params[:date_search].blank?
-      @start_day         = Date.parse(params[:date_search])
-      @end_day           = @start_day + 6
-      @categories        = @start_day.upto(@end_day).to_a
-      tickInterval       = 1
+    if !params[:start_date_search].blank?
+      @start_day = Date.parse(params[:start_date_search])
+      if !params[:end_date_search].blank?
+        @end_day = Date.parse(params[:end_date_search]) + 1
+      else
+        @end_day = @start_day + 7
+      end
+#      @categories  = @start_day.upto(@end_day).to_a
+      tickInterval = 1
       @data = @datebodydata.where(:date => @start_day...@end_day)
+      @categories = @data.select(:date).order("date").map{|d| d.date}
       data1 = @data.select(:weight).order("date").map{|d| d.weight.to_f}
       data2 = @data.select(:pulse).order("date").map{|d| d.pulse.to_f}
       data3 = @data.select(:bodytemperature).order("date").map{|d| d.bodytemperature.to_f}
