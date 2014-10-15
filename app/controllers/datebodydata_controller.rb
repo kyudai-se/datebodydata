@@ -23,20 +23,27 @@ class DatebodydataController < ApplicationController
       else
         @end_day = @start_day + 7
       end
-#      @categories  = @start_day.upto(@end_day).to_a
+#X軸間隔設定
       tickInterval = 1
+#データ取得
       @data = @datebodydata.where(:date => @start_day...@end_day)
+#X軸データ取得
       @categories = @data.select(:date).order("date").map{|d| d.date}
+#グラフデータ
       data1 = @data.select(:weight).order("date").map{|d| d.weight.to_f}
       data2 = @data.select(:pulse).order("date").map{|d| d.pulse.to_f}
       data3 = @data.select(:bodytemperature).order("date").map{|d| d.bodytemperature.to_f}
       data4 = @data.select(:bloodpressure).order("date").map{|d| d.bloodpressure.to_i}
       data5 = @data.select(:highbloodpressure).order("date").map{|d| d.highbloodpressure.to_i}
+#グラフ描画
       @graph_data = LazyHighCharts::HighChart.new('graph') do |f|
         f.title(text: 'グラフ名')
+#X軸設定反映
         f.xAxis(categories: @categories, tickInterval: tickInterval)
+
+#Y軸設定
         f.options[:yAxis] = [
-#yAxis: 0 or 指定なし
+#yAxis: 0
           { title: { text: '体重' }, min: 30, max: 130, tickInterval: 10},
 #yAxis: 1
           { title: { text: '血圧' }, min: 50, max: 150, tickInterval: 10},
@@ -45,9 +52,20 @@ class DatebodydataController < ApplicationController
 #yAxis: 3
           { title: { text: '体温' }, min: 35, max: 41, tickInterval: 0.5, opposite: true }
                             ]
-        f.series(name: '体重', data: data1, type: 'column', yAxis: 0,
+#グラフ設定
+        f.series(
+#グラフ名
+                  name: '体重',
+#グラフデータ
+                  data: data1,
+#グラフタイプ
+                  type: 'column',
+#Y軸指定
+                  yAxis: 0,
+#グラフ単位
                  tooltip: { valueSuffix: 'Kg'},
-#                 enableMouseTracking: false
+#グラフにカーソルを合わせた時に説明を出すかどうかの設定。defaultはtrue
+                 enableMouseTracking: true
                 )
         f.series(name: '最低血圧', data: data4, type: 'column', yAxis: 1,
                  tooltip: { valueSuffix: 'mmHg'}
