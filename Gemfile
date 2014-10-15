@@ -27,6 +27,8 @@ gem 'chartkick'
 
 gem 'lazy_high_charts'
 
+gem 'rails3-jquery-autocomplete', git: 'https://github.com/francisd/rails3-jquery-autocomplete'
+
 group :doc do
 # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', '0.3.20',          group: :doc

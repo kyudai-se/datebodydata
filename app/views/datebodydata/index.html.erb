@@ -21,13 +21,14 @@
         <td><%= number_with_precision(datebodydatum.bodytemperature, precision: 1) %></td>
         <td><%= number_with_precision(datebodydatum.bloodpressure, precision: 0) %></td>
         <td><%= number_with_precision(datebodydatum.highbloodpressure, precision: 0) %></td>
-        <td><%= link_to 'Show', datebodydatum %></td>
-        <td><%= link_to 'Edit', edit_datebodydatum_path(datebodydatum) %></td>
-        <td><%= link_to 'Destroy', datebodydatum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', datebodydatum_path(datebodydatum, :date_search => params[:date_search]) %></td>
+        <td><%= link_to 'Edit', edit_datebodydatum_path(datebodydatum, :date_search => params[:date_search]) %></td>
+        <td><%= link_to 'Destroy', datebodydatum_path(datebodydatum, :date_search => params[:date_search]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Datebodydatum', new_datebodydatum_path %>
+<%= link_to 'New Datebodydatum', new_datebodydatum_path(:date_search => params[:date_search]) %>
+<%= link_to 'root', root_path %>
 <%= high_chart("chart-1", @graph_data) %>

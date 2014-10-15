@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141009070428) do
+ActiveRecord::Schema.define(version: 20141014004501) do
 
   create_table "aream", force: true do |t|
     t.datetime "entdate"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20141009070428) do
     t.decimal  "bodytemperature"
     t.decimal  "bloodpressure"
     t.decimal  "highbloodpressure"
+    t.datetime "date_search"
   end
 
   add_index "datebodydata", ["date"], name: "index_datebodydata_on_date", unique: true, using: :btree

@@ -1,0 +1,8 @@
+<h1>範囲指定フォーム</h1>
+<%= form_tag datebodydata_path, :method => :get do %>
+<p>
+表示する月
+<%= autocomplete_field_tag :date_search, params[:date_search], autocomplete_datebodydatum_date_datebodydata_path, :autocomplete => "off" %>
+</p>
+<%= submit_tag "表示" %>
+<% end %>

@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @datebodydatum %> |
-<%= link_to 'Back', datebodydata_path %>
+<%= link_to 'Show', datebodydatum_path(@datebodydatum, :date_search => params[:date_search]) %> |
+<%= link_to 'Back', datebodydata_path(:date_search => params[:date_search]) %>
